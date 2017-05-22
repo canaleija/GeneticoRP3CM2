@@ -5,6 +5,9 @@
  */
 package geneticorp3cm2;
 
+import rp.MinimaDistancia;
+import rp.ValoresEstaticos;
+
 /**
  *
  * @author Roberto Cruz Leija
@@ -15,7 +18,10 @@ public class GeneticoRP3CM2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ValoresEstaticos.calcularConjuntoEntrenamiento();
+        MinimaDistancia md = new MinimaDistancia();
+        md.clasificar(new int[]{1,1,1});
+        System.out.println();
     }
     
 }
