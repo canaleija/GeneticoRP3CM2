@@ -18,11 +18,12 @@ public class MinimaDistancia {
     
     
     public MinimaDistancia(){
-       this.porcentajeClasificacion = 0;
+       this.porcentajeClasificacion = 100;
     }
        
     public void clasificar(int[] factorDiscriminante){
         // recorremos los patrones a clasificar
+        this.porcentajeClasificacion = 100;
         ArrayList<Patron> conjuntoAClasificar = ValoresEstaticos.conjuntoAClasificar;
         int ind;
         double dis;
@@ -40,7 +41,16 @@ public class MinimaDistancia {
           // se genera la clasificacion 
           p.setClaseResultado(ValoresEstaticos.medias.get(ind).getClase());
         }
-        System.out.println();
+        // calculamos el porcentaje de clasificacion correcta
+        double correctos = 0;
+        for (Patron patron: conjuntoAClasificar){
+           if (patron.getClase().equals(patron.getClaseResultado())){
+           correctos++;
+           }
+        }
+        
+        this.porcentajeClasificacion *=correctos/conjuntoAClasificar.size();
+        //System.out.println(this.porcentajeClasificacion);
         
     }
 
@@ -54,6 +64,13 @@ public class MinimaDistancia {
            }
         }
         return Math.sqrt(acumulado);
+    }
+
+    /**
+     * @return the porcentajeClasificacion
+     */
+    public double getPorcentajeClasificacion() {
+        return porcentajeClasificacion;
     }
 
    
