@@ -5,8 +5,11 @@
  */
 package rp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,8 +23,9 @@ public class ValoresEstaticos {
     public static ArrayList<String> clases;
     
     public static void calcularConjuntoEntrenamiento(){
-       // leemos los datos 
-       conjuntoEntrenamiento = generarAleatorio(1000, 10, 10);
+        try {
+            // leemos los datos
+            conjuntoEntrenamiento = Tokenizador.abrirFile();
 //       conjuntoEntrenamiento.add(new Patron(new double[]{3.4,5,7.8}, "Conejo"));
 //       conjuntoEntrenamiento.add(new Patron(new double[]{2.3,4.5,9}, "Conejo"));
 //       conjuntoEntrenamiento.add(new Patron(new double[]{21,22,23}, "Conejo"));
@@ -34,11 +38,14 @@ public class ValoresEstaticos {
 //       //conjuntoEntrenamiento.add(new Patron(new double[]{16.5,14.7,11.8}, "Perro"));
 //       conjuntoEntrenamiento.add(new Patron(new double[]{2.7,3.1,3.5}, "Perro"));
 
+
+        conjuntoAClasificar = (ArrayList<Patron>) conjuntoEntrenamiento.clone();
+        calcularClases();
+        calcularMedias();
        
-       conjuntoAClasificar = (ArrayList<Patron>) conjuntoEntrenamiento.clone();
-       calcularClases();
-       calcularMedias();
-       System.out.println();
+        } catch (IOException ex) {
+            Logger.getLogger(ValoresEstaticos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public static void calcularClases(){
         clases = new ArrayList<>();
@@ -101,16 +108,16 @@ public class ValoresEstaticos {
     }
     
     public static int[] generarFactoresAleatorios(int numC){
-     String jaja = "";
+    
      int aux[] = new int[numC];
      Random ran = new Random();
      for (int x=0; x < numC;x++){
          int i = ran.nextInt(2);
-         jaja+=""+i;
+        
          aux[x] = i;
                              
      }
-     System.out.print(jaja+" -");
+     
      return aux;
     }
     
